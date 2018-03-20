@@ -3,11 +3,11 @@
 define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
-	'text!templates/recallStatusTemplate.html', 'text!templates/foodRecallCountTemplate.html',
+	'text!templates/recallStatusTemplate.html', 'text!templates/DrugRecallCountTemplate.html',
 	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html',
-	'collections/recalledFoodCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
+	'collections/recalledDrugCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
-	FoodRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledFoodCollection,
+	DrugRecallCountTemplate, ResultsSubTemplate, DetailsTemplate, RecalledDrugCollection,
 	d3, c3, uStates, TermsCollection) {
 	'use strict';
 
@@ -23,7 +23,7 @@ define([
 
 		stateList: '',
 
-		dateRange: [2012, 2015],
+		dateRange: [2012, 2018],
 
 		totalCount: 0,
 		// View constructor
@@ -103,16 +103,16 @@ define([
 
 		},
 		displayResults: function() {
-			this.recalledFoodCollection = new RecalledFoodCollection();
-			this.recalledFoodCollection.url = this.model.generateURL();
+			this.recalledDrugCollection = new RecalledDrugCollection();
+			this.recalledDrugCollection.url = this.model.generateURL();
 
 			var self = this;
 			this.$el.find('#resultsSection').html('');
 			this.$el.find('#detailsSection').html('');
 
-			this.recalledFoodCollection.fetch({
+			this.recalledDrugCollection.fetch({
 				success: function() {
-					self.totalCount = self.recalledFoodCollection.totalCount;
+					self.totalCount = self.recalledDrugCollection.totalCount;
 					self.loadTemplate();
 					self.displayResultsChart();
 				},
@@ -175,18 +175,21 @@ define([
 		},
 		loadFoodRecallCountDetails: function() {
 			//Pathogen recall count
-			this.loadRecallCount('salmonella', this.salmonellaCollection, FoodRecallCountTemplate, window.gblSalmonellaCount);
-			this.loadRecallCount('norovirus', this.norovirusCollection, FoodRecallCountTemplate, window.gblNorovirusCount);
-			this.loadRecallCount('listeria', this.listeriaCollection, FoodRecallCountTemplate, window.gblListeriaCount);
-			this.loadRecallCount('ecoli', this.ecoliCollection, FoodRecallCountTemplate, window.gblEcoliCount);
+			this.loadRecallCount('antibiotics', this.antibioticsCollection, DrugRecallCountTemplate, window.gblAntibioticsCount);
+			this.loadRecallCount('antivirals', this.antiviralsCollection, DrugRecallCountTemplate, window.gblAntiviralsCount);
+			this.loadRecallCount('antifungal', this.antifungalCollection, DrugRecallCountTemplate, window.gblAntifungalCount);
+			
+			//this.loadRecallCount('norovirus', this.norovirusCollection, DrugRecallCountTemplate, window.gblNorovirusCount);
+			//this.loadRecallCount('listeria', this.listeriaCollection, DrugRecallCountTemplate, window.gblListeriaCount);
+			//this.loadRecallCount('ecoli', this.ecoliCollection, DrugRecallCountTemplate, window.gblEcoliCount);
 
 			//food pyramid recall count
-			this.loadRecallCount('grain', this.grainCollection, FoodRecallCountTemplate, window.gblGrainCount);
-			this.loadRecallCount('vegetable', this.vegetableCollection, FoodRecallCountTemplate, window.gblVegetableCount);
-			this.loadRecallCount('fruit', this.fruitCollection, FoodRecallCountTemplate, window.gblFruitCount);
-			this.loadRecallCount('oil', this.oilCollection, FoodRecallCountTemplate, window.gblOilCount);
-			this.loadRecallCount('dairy', this.dairyCollection, FoodRecallCountTemplate, window.gblDairyCount);
-			this.loadRecallCount('meat', this.meatCollection, FoodRecallCountTemplate, window.gblMeatCount);
+			//this.loadRecallCount('grain', this.grainCollection, DrugRecallCountTemplate, window.gblGrainCount);
+			//this.loadRecallCount('vegetable', this.vegetableCollection, DrugRecallCountTemplate, window.gblVegetableCount);
+			//this.loadRecallCount('fruit', this.fruitCollection, DrugRecallCountTemplate, window.gblFruitCount);
+			//this.loadRecallCount('oil', this.oilCollection, DrugRecallCountTemplate, window.gblOilCount);
+			//this.loadRecallCount('dairy', this.dairyCollection, DrugRecallCountTemplate, window.gblDairyCount);
+			//this.loadRecallCount('meat', this.meatCollection, DrugRecallCountTemplate, window.gblMeatCount);
 		},
 		//Load Recall Count Collection and template
 		loadRecallCount: function(id, collectionName, templateName, serviceurl) {
@@ -200,17 +203,17 @@ define([
 			});
 		},
 		loadRecallTemplate: function(id, templateName, collectiondata) {
-			this.foodRecallTemplate = _.template(templateName, {
+			this.drugRecallTemplate = _.template(templateName, {
 				data: collectiondata
 			});
-			this.$el.find('#' + id).html(this.foodRecallTemplate);
+			this.$el.find('#' + id).html(this.drugRecallTemplate);
 		},
 		//load the respective templates
 		loadTemplate: function() {
 
 			this.subTemplate = _.template(ResultsSubTemplate, {
 				content: JSON.parse(content),
-				data: this.recalledFoodCollection.toJSON(),
+				data: this.recalledDrugCollection.toJSON(),
 				reqModel: this.model,
 				maxCount: this.totalCount
 			});
@@ -222,7 +225,7 @@ define([
 		getDetails: function(e) {
 			var recallNumber = $(e.target).data('id');
 
-			var recallDetails = this.recalledFoodCollection.where({
+			var recallDetails = this.recalledDrugCollection.where({
 				'recall_number': recallNumber
 			});
 

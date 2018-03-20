@@ -1,4 +1,4 @@
-window.gblResults = 'https://api.fda.gov/food/enforcement.json?';
+//window.gblResults = 'https://api.fda.gov/drug/enforcement.json?';
 window.gblSalmonellaCount ='https://api.fda.gov/food/enforcement.json?search=reason_for_recall:salmonella&count=classification.exact';
 window.gblNorovirusCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:norovirus&count=classification.exact';
 window.gblListeriaCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:listeria&count=classification.exact';
@@ -9,3 +9,15 @@ window.gblVegetableCount = 'https://api.fda.gov/food/enforcement.json?search=rea
 window.gblFruitCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:fruit+apple+peach&count=classification.exact';
 window.gblMeatCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:beef+pork+chicken+egg+poultry+fish&count=classification.exact';
 window.gblOilCount = 'https://api.fda.gov/food/enforcement.json?search=reason_for_recall:dressing+oil+butter&count=classification.exact';
+window.gblAntibioticsCount = 'https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:Antibiotic&count=classification.exact';
+window.gblAntiviralsCount = 'https://api.fda.gov/drug/enforcement.json?search=product_description:Antibiotic&count=classification.exact';
+window.gblAntifungalCount = 'https://api.fda.gov/drug/enforcement.json?search=product_description:Antifungal&count=classification.exact';
+window.gblAnticoagulantCount = 'https://api.fda.gov/drug/enforcement.json?search=product_description:Anticoagulant&count=classification.exact';
+window.gblAnalgesicCount = 'https://api.fda.gov/drug/enforcement.json?search=product_description:Analgesic&count=classification.exact';
+window.gblAntidepressantCount = 'https://api.fda.gov/drug/enforcement.json?search=product_description:Antidepressant&count=classification.exact';
+window.gblResults = 'https://api.fda.gov/drug/enforcement.json?';
+window.gblSterilityCount ='https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:Lack of Sterility&count=classification.exact';
+window.gblSubpotentCount = 'https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:Subpotent&count=classification.exact';
+window.gblContaminationCount = 'https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:Contamination&count=classification.exact';
+window.gblParticulateCount = 'https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:Presence of particulate matter&count=classification.exact';
+window.gblGmpdeviationCount = 'https://api.fda.gov/drug/enforcement.json?search=reason_for_recall:GMP Deviations&count=classification.exact';
