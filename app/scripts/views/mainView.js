@@ -3,7 +3,7 @@
 define([
 	'jquery', 'backbone', 'text!templates/main.html', 'text!locale/main.json', 'text!locale/es_mx/main.json',
 	'text!templates/dateRangeTemplate.html', 'text!templates/distributionPattern.html', 'text!templates/stateTemplate.html',
-	'text!templates/recallStatusTemplate.html', 'text!templates/DrugRecallCountTemplate.html',
+	'text!templates/recallStatusTemplate.html', 'text!templates/drugRecallCountTemplate.html',
 	'text!templates/resultsSubTemplate.html', 'text!templates/detailsTemplate.html',
 	'collections/recalledDrugCollection', 'd3', 'c3', 'helpers/uStates', 'collections/termsCollection',
 ], function($, Backbone, template, content, contentES, DateRangeTemplate, DistributionPatternTemplate, StateTemplate, RecallStatusTemplate,
